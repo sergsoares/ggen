@@ -1,4 +1,4 @@
-template_path: "examples/fly.io.tpl"
+template_path: "examples"
 output_path: "dist"
 
 data:
