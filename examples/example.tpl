@@ -1,1 +1,1 @@
-You have a task named \"{{ .key }}\" with description la: \"{{ .key}}\"
+You have a task named \"{{ .key }}\" with description la: \"{{ .name}}\"
