@@ -3,6 +3,8 @@
 Project to provide a alternative for [Cookiecutter](https://github.com/cookiecutter/cookiecutter) for define project generation.
 
 ### Usage
+
+Create ggen configuration:
 ```
 cat << EOF > g.yml
 template_path: "examples"
@@ -22,5 +24,6 @@ EOF
 x Simple cli with go templates for create one file.
 - Add ggen init to generate basic configuration (air inspired)
 - Implement safe manipulation of paths.
+- Add parameters or config file.
 - Add tests
 - Pre-Build
