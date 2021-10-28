@@ -59,8 +59,11 @@ func main() {
 		panic(err)
 	}
 
-	// TODO: Create Function for file generator
-	file, err := os.Open(config.TemplatePath)
+	evaluteFile(config.TemplatePath, config.OutputPath, out.Data)
+}
+
+func evaluteFile(path string, outputPath string, data interface{}) {
+	file, err := os.Open(path)
 	if err != nil {
 		fmt.Errorf("Failure with path: %s", err)
 	}
@@ -74,12 +77,10 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-
-	// TODO: Create file or path too
-	f, _ := os.Create(config.OutputPath)
+	f, _ := os.Create(outputPath)
 	defer f.Close()
 
-	err = t.Execute(f, out.Data)
+	err = t.Execute(f, data)
 	if err != nil {
 		panic(err)
 	}
