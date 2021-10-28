@@ -1,5 +1,5 @@
 template_path: "examples/fly.io.tpl"
-output_path: "res.txt"
+output_path: "dist/res.txt"
 
 data:
   internal_port: 3000 

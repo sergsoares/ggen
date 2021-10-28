@@ -5,8 +5,10 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 	"text/template"
 
+	"github.com/karrick/godirwalk"
 	"gopkg.in/yaml.v3"
 )
 
@@ -53,6 +55,21 @@ func main() {
 	}
 
 	t, err := template.New("").Parse(string(content))
+	if err != nil {
+		panic(err)
+	}
+
+	dirname := "examples"
+	err = godirwalk.Walk(dirname, &godirwalk.Options{
+		Callback: func(osPathname string, de *godirwalk.Dirent) error {
+			if !strings.Contains(osPathname, "/") {
+				return nil
+			}
+			// TODO: Open each file and apply template with data params.
+			fmt.Printf("%s %s\n", de.ModeType(), osPathname)
+			return nil
+		},
+	})
 	if err != nil {
 		panic(err)
 	}
