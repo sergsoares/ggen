@@ -50,16 +50,16 @@ func main() {
 			if !strings.Contains(osPathname, "/") {
 				return nil
 			}
-			// TODO: Open each file and apply template with data params.
-			fmt.Printf("%s %s\n", de.ModeType(), osPathname)
+			pathToSave := "dist/" + de.Name()
+			log.Println(osPathname, de.Name(), pathToSave)
+
+			evaluteFile(osPathname, pathToSave, out.Data)
 			return nil
 		},
 	})
 	if err != nil {
 		panic(err)
 	}
-
-	evaluteFile(config.TemplatePath, config.OutputPath, out.Data)
 }
 
 func evaluteFile(path string, outputPath string, data interface{}) {
