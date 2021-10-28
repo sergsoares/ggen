@@ -44,14 +44,16 @@ func main() {
 		log.Fatal(err)
 	}
 
-	dirname := "examples"
-	err = godirwalk.Walk(dirname, &godirwalk.Options{
+	err = godirwalk.Walk(config.TemplatePath, &godirwalk.Options{
 		Callback: func(osPathname string, de *godirwalk.Dirent) error {
 			if !strings.Contains(osPathname, "/") {
 				return nil
 			}
-			pathToSave := "dist/" + de.Name()
-			log.Println(osPathname, de.Name(), pathToSave)
+
+			//TODO: Implement safe path management.
+			pathToSave := config.OutputPath + "/" + de.Name()
+			log.Println("Template used:" + osPathname)
+			log.Println("Evaluate generated:" + pathToSave)
 
 			evaluteFile(osPathname, pathToSave, out.Data)
 			return nil
