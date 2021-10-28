@@ -44,21 +44,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	file, err := os.Open(config.TemplatePath)
-	if err != nil {
-		fmt.Errorf("Failure with path: %s", err)
-	}
-
-	content, err := ioutil.ReadAll(file)
-	if err != nil {
-		fmt.Errorf("Failure with file content: %s", err)
-	}
-
-	t, err := template.New("").Parse(string(content))
-	if err != nil {
-		panic(err)
-	}
-
 	dirname := "examples"
 	err = godirwalk.Walk(dirname, &godirwalk.Options{
 		Callback: func(osPathname string, de *godirwalk.Dirent) error {
@@ -70,6 +55,22 @@ func main() {
 			return nil
 		},
 	})
+	if err != nil {
+		panic(err)
+	}
+
+	// TODO: Create Function for file generator
+	file, err := os.Open(config.TemplatePath)
+	if err != nil {
+		fmt.Errorf("Failure with path: %s", err)
+	}
+
+	content, err := ioutil.ReadAll(file)
+	if err != nil {
+		fmt.Errorf("Failure with file content: %s", err)
+	}
+
+	t, err := template.New("").Parse(string(content))
 	if err != nil {
 		panic(err)
 	}
