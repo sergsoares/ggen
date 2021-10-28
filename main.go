@@ -10,16 +10,18 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+type Config struct {
+	TemplatePath string `yaml:"template_path"`
+	OutputPath   string `yaml:"output_path"`
+}
+
 type Params struct {
 	Data interface{} `yaml:"data"`
 }
 
+const config_path = "ggen.yml"
+
 func main() {
-	fmt.Println("Lets go")
-
-	path := "examples/fly.io.tpl"
-	config_path := "examples/config.yml"
-
 	file_config, err := os.Open(config_path)
 	if err != nil {
 		fmt.Errorf("Failure with path: %s", err)
@@ -29,13 +31,18 @@ func main() {
 	if err != nil {
 		fmt.Errorf("Failure with file content: %s", err)
 	}
-	out := Params{}
 
+	config := Config{}
+	if err := yaml.Unmarshal(content_config, &config); err != nil {
+		log.Fatal(err)
+	}
+
+	out := Params{}
 	if err := yaml.Unmarshal(content_config, &out); err != nil {
 		log.Fatal(err)
 	}
 
-	file, err := os.Open(path)
+	file, err := os.Open(config.TemplatePath)
 	if err != nil {
 		fmt.Errorf("Failure with path: %s", err)
 	}
@@ -50,7 +57,11 @@ func main() {
 		panic(err)
 	}
 
-	err = t.Execute(os.Stdout, out.Data)
+	// TODO: Create file or path too
+	f, _ := os.Create(config.OutputPath)
+	defer f.Close()
+
+	err = t.Execute(f, out.Data)
 	if err != nil {
 		panic(err)
 	}

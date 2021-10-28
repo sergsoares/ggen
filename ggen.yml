@@ -1,0 +1,7 @@
+template_path: "examples/fly.io.tpl"
+output_path: "res.txt"
+
+data:
+  internal_port: 3000 
+  name: ggen
+  Timeout: 2000
