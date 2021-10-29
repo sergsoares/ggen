@@ -17,11 +17,13 @@ data:
 EOF
 ```
 
+Then you can create a folder with templates and use [Go templates](https://blog.gopheracademy.com/advent-2017/using-go-templates/)
+
 ---
 
 ## Roadmap next steps
 
-x Simple cli with go templates for create one file.
+- Simple cli with go templates for create one file.
 - Add ggen init to generate basic configuration (air inspired)
 - Implement safe manipulation of paths.
 - Add parameters or config file.
