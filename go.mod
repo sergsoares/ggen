@@ -1,4 +1,4 @@
-module tidy
+module ggen
 
 go 1.16
 
