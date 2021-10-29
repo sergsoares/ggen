@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path"
+	"path/filepath"
 	"strings"
 	"text/template"
 
@@ -46,14 +48,26 @@ func main() {
 
 	err = godirwalk.Walk(config.TemplatePath, &godirwalk.Options{
 		Callback: func(osPathname string, de *godirwalk.Dirent) error {
+			fmt.Println(osPathname)
 			if !strings.Contains(osPathname, "/") {
 				return nil
 			}
 
-			//TODO: Implement safe path management.
-			pathToSave := config.OutputPath + "/" + de.Name()
-			log.Println("Template used:" + osPathname)
-			log.Println("Evaluate generated:" + pathToSave)
+			isDir, err := isDirectory(osPathname)
+			if err != nil {
+				panic(err)
+			}
+			if isDir {
+				return nil
+			}
+			pathSplited := strings.SplitN(osPathname, "/", 2)
+
+			pathToSave := filepath.Join(config.OutputPath, pathSplited[1])
+			pathDir := path.Dir(pathToSave)
+			err = os.MkdirAll(pathDir, os.ModePerm)
+			if err != nil {
+				panic(err)
+			}
 
 			evaluteFile(osPathname, pathToSave, out.Data)
 			return nil
@@ -62,6 +76,15 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func isDirectory(path string) (bool, error) {
+	fileInfo, err := os.Stat(path)
+	if err != nil {
+		return false, err
+	}
+
+	return fileInfo.IsDir(), err
 }
 
 func evaluteFile(path string, outputPath string, data interface{}) {
