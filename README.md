@@ -5,25 +5,19 @@ Project to provide a alternative for [Cookiecutter](https://github.com/cookiecut
 ## Install
 
 ```bash
-curl -LO https://github.com/sergsoares/ggen/releases/download/v0.2.0/ggen
+curl -LO https://github.com/sergsoares/ggen/releases/download/v0.3.0/ggen
 ```
 
 ## Usage
 
-Create ggen configuration:
+Create a new folder and use:
 ```
-cat << EOF > ggen.yml
-template_path: "template"
-output_path: "dist"
+./ggen -init
 
-data:
-  internal_port: 3000 
-  name: ggen
-  Timeout: 2000
-EOF
+# It will create ggen.yml and a template folder with simple example.
 ```
 
-Then you can create a folder with templates and use [Go templates](https://blog.gopheracademy.com/advent-2017/using-go-templates/)
+Then you can use Go templates [Tutorial](https://blog.gopheracademy.com/advent-2017/using-go-templates/) for create scaffolds for your project.
 
 ---
 
@@ -37,3 +31,5 @@ Then you can create a folder with templates and use [Go templates](https://blog.
 - Pre-Build
 - Strict mode to avoid "<no value>" appear inside templates
 - Validate output based on extension (JSON/YAML/HCL)
+- Verify if folder is empty in init
+- Open templates from URL
