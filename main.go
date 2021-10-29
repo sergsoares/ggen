@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -26,6 +27,37 @@ type Params struct {
 const config_path = "ggen.yml"
 
 func main() {
+	var init bool
+	flag.BoolVar(&init, "init", false, "Dry run command to be created.")
+	flag.Parse()
+
+	if init {
+		// TODO: Validate if not exists
+		file, err := os.Create("ggen.yml")
+		if err != nil {
+			log.Println(err)
+		}
+		defer file.Close()
+		file.WriteString(`template_path: "template"
+output_path: "dist"
+
+data:
+  name: ggen`)
+
+		err = os.Mkdir("template", os.ModePerm)
+		if err != nil {
+			panic(err)
+		}
+
+		file, err = os.Create("template/app.py")
+		if err != nil {
+			log.Println(err)
+		}
+		defer file.Close()
+		file.WriteString("app = {{ .name }}")
+		os.Exit(0)
+	}
+
 	file_config, err := os.Open(config_path)
 	if err != nil {
 		fmt.Errorf("Failure with path: %s", err)

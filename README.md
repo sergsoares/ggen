@@ -2,7 +2,13 @@
 
 Project to provide a alternative for [Cookiecutter](https://github.com/cookiecutter/cookiecutter) for define project generation.
 
-### Usage
+## Install
+
+```bash
+curl -LO https://github.com/sergsoares/ggen/releases/download/v0.2.0/ggen
+```
+
+## Usage
 
 Create ggen configuration:
 ```

@@ -1,7 +1,5 @@
-template_path: "examples"
+template_path: "template"
 output_path: "dist"
 
 data:
-  internal_port: 3000 
   name: ggen
-  Timeout: 2000
