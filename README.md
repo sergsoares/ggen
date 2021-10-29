@@ -6,7 +6,7 @@ Project to provide a alternative for [Cookiecutter](https://github.com/cookiecut
 
 Create ggen configuration:
 ```
-cat << EOF > g.yml
+cat << EOF > ggen.yml
 template_path: "examples"
 output_path: "dist"
 
@@ -27,3 +27,5 @@ x Simple cli with go templates for create one file.
 - Add parameters or config file.
 - Add tests
 - Pre-Build
+- Strict mode to avoid "<no value>" appear inside templates
+- Validate output based on extension (JSON/YAML/HCL)
