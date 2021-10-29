@@ -7,7 +7,7 @@ Project to provide a alternative for [Cookiecutter](https://github.com/cookiecut
 Create ggen configuration:
 ```
 cat << EOF > ggen.yml
-template_path: "examples"
+template_path: "template"
 output_path: "dist"
 
 data:
